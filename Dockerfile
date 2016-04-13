@@ -35,12 +35,17 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
 	# 默认设定为EGPCS(ENV/GET/POST/COOKIE/SERVER)
 	sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini
 
-COPY . /var/www/html/
-
 RUN echo "extension=mongo.so" >> /etc/php5/apache2/php.ini
-RUN /etc/init.d/apache2 restart
 
-CMD apache2 -D FOREGROUND
+# 配置默认放置App的目录
+RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
+ADD . /app
+WORKDIR /app
+RUN chmod 755 ./start.sh
+
+RUN chmod -R 777 /app/*
 
 EXPOSE 80
+CMD ["./start.sh"]
 
+ADD httpd.conf /etc/apache2/sites-enabled/000-default.conf
