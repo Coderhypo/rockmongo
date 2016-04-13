@@ -25,7 +25,7 @@ $MONGO["servers"][$i]["mongo_port"] = getenv('MONGODB_PORT_27017_TCP_PORT');//mo
 $MONGO["servers"][$i]["mongo_timeout"] = 0;//mongo connection timeout
 $MONGO["servers"][$i]["mongo_db"] = getenv('MONGODB_INSTANCE_NAME');//default mongo db to connect, works only if mongo_auth=false
 $MONGO["servers"][$i]["mongo_user"] = getenv('MONGODB_USERNAME');//mongo authentication user name, works only if mongo_auth=false
-$MONGO["servers"][$i]["mongo_pass"] = getenv('MONGODB_PASSWORD')//mongo authentication password, works only if mongo_auth=false
+$MONGO["servers"][$i]["mongo_pass"] = getenv('MONGODB_PASSWORD');//mongo authentication password, works only if mongo_auth=false
 $MONGO["servers"][$i]["mongo_auth"] = false;//enable mongo authentication?
 
 $MONGO["servers"][$i]["control_auth"] = true;//enable control users, works only if mongo_auth=false
