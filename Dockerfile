@@ -44,6 +44,7 @@ WORKDIR /app
 RUN chmod 755 ./start.sh
 
 RUN chmod -R 777 /app
+RUN chown -R www-data /var/www/html
 
 EXPOSE 80
 CMD ["./start.sh"]
