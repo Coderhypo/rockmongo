@@ -1,15 +1,46 @@
-FROM daocloud.io/ubuntu
+FROM ubuntu:trusty
+# Ubuntu 14.04, Trusty Tahr(可靠的塔尔羊)发行版
 
-MAINTAINER Hypo i@ihypo.net
+# 道客船长荣誉出品
+MAINTAINER Captain Dao (support@daocloud.io)
+
+# APT自动安装PHP相关的依赖包,如需其他依赖包在此添加.
+RUN apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get -yq install \
+		curl \
+	    apache2 \
+	    libapache2-mod-php5 \
+	    php5-pgsql \
+	    php5-gd \
+	    php5-curl \
+	    php-pear \
+		php-pear \
+		php5-mongo \
+	    php-apc && \
+
+	# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
+	apt-get clean && \
+	apt-get autoclean && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+
+	# 安装Composer,此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
+	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Apache2配置文件:/etc/apache2/apache2.conf
+# 给Apache2设置一个默认服务名,避免启动时给个提示让人紧张.
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+
+	# PHP配置文件:etc/php5/apache2/php.ini
+	# 调整PHP处理Request里变量提交值的顺序,解析顺序从左到右,后解析新值覆盖旧值.
+	# 默认设定为EGPCS(ENV/GET/POST/COOKIE/SERVER)
+	sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini
 
 COPY . /var/www/html/
-
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y php-pear apache2 php5 libapache2-mod-php5 php5-mongo
-RUN /etc/init.d/apache2 restart
 
 RUN echo "extension=mongo.so" >> /etc/php5/apache2/php.ini
 RUN /etc/init.d/apache2 restart
 
+CMD apache2 -D FOREGROUND
+
 EXPOSE 80
+
