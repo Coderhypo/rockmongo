@@ -11,3 +11,5 @@ RUN /etc/init.d/apache2 restart
 
 RUN echo "extension=mongo.so" >> /etc/php5/apache2/php.ini
 RUN /etc/init.d/apache2 restart
+
+EXPOSE 80
