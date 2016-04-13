@@ -18,7 +18,7 @@ $i = 0;
 * 
 * @see more details at http://rockmongo.com/wiki/configuration?lang=en_us
 */
-$MONGO["servers"][$i]["mongo_name"] = getenv('MONGODB_USERNAME');//mongo server name
+$MONGO["servers"][$i]["mongo_name"] = getenv('MONGODB_PORT_27017_TCP_ADDR');//mongo server name
 //$MONGO["servers"][$i]["mongo_sock"] = "/var/run/mongo.sock";//mongo socket path (instead of host and port)
 $MONGO["servers"][$i]["mongo_host"] = getenv('MONGODB_PORT_27017_TCP_ADDR');//mongo host
 $MONGO["servers"][$i]["mongo_port"] = getenv('MONGODB_PORT_27017_TCP_PORT');//mongo port
