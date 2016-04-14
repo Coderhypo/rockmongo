@@ -13,7 +13,6 @@ RUN apt-get update && \
 	    php5-pgsql \
 	    php5-gd \
 	    php5-curl \
-	    php-pear \
 		php-pear \
 		php5-mongo \
 	    php-apc && \

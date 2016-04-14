@@ -28,7 +28,7 @@ $MONGO["servers"][$i]["mongo_user"] = getenv('MONGODB_USERNAME');//mongo authent
 $MONGO["servers"][$i]["mongo_pass"] = getenv('MONGODB_PASSWORD');//mongo authentication password, works only if mongo_auth=false
 $MONGO["servers"][$i]["mongo_auth"] = false;//enable mongo authentication?
 
-$MONGO["servers"][$i]["control_auth"] = true;//enable control users, works only if mongo_auth=false
+$MONGO["servers"][$i]["control_auth"] = false;//enable control users, works only if mongo_auth=false
 $MONGO["servers"][$i]["control_users"]["admin"] = "admin";//one of control users ["USERNAME"]=PASSWORD, works only if mongo_auth=false
 
 $MONGO["servers"][$i]["ui_only_dbs"] = "";//databases to display
